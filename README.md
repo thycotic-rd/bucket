@@ -1,5 +1,8 @@
-[![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/b3ntly/bucket/master/LICENSE.txt) [![Build Status](https://travis-ci.org/b3ntly/bucket.svg?branch=master)](https://travis-ci.org/b3ntly/bucket)
-[![Coverage Status](https://coveralls.io/repos/github/b3ntly/bucket/badge.svg?branch=master)](https://coveralls.io/github/b3ntly/bucket?branch=master?q=1) [![GoDoc](https://godoc.org/github.com/b3ntly/bucket?status.svg)](https://godoc.org/github.com/b3ntly/bucket)
+[![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/b3ntly/bucket/master/LICENSE.txt) 
+[![Build Status](https://travis-ci.org/b3ntly/bucket.svg?branch=master)](https://travis-ci.org/b3ntly/bucket)
+[![Coverage Status](https://coveralls.io/repos/github/b3ntly/bucket/badge.svg?branch=master)](https://coveralls.io/github/b3ntly/bucket?branch=master?q=1) 
+[![GoDoc](https://godoc.org/github.com/b3ntly/bucket?status.svg)](https://godoc.org/github.com/b3ntly/bucket)
+[![Documentation](https://readthedocs.org/projects/docs/badge/?version=latest)](https://b3ntly.github.io/bucket)
 
 ## Bucket primitives with support for in-memory or Redis based storage
 
@@ -309,6 +312,3 @@ Redis
 | BenchmarkBucket_Create-8 | 10000      | 98582 ns/op |
 | BenchmarkBucket_Take-8   | 30000      | 47716 ns/op  |
 | BenchmarkBucket_Put-8    | 50000      | 31350 ns/op  |
-
-
-
