@@ -3,6 +3,11 @@ themesdir = "themes"
 languageCode = "en-us"
 baseurl = "https://b3ntly.github.io/bucket"
 title = "DocuAPI Example Site"
+builddrafts         = true
+canonifyurls        = true
+contentdir          = "content"
+layoutdir           = "layouts"
+publishdir          = "./"
 
 # Code higlighting settings
 pygmentsCodefences = true

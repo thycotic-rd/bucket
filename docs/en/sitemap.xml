@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  
+  <url>
+    <loc>https://b3ntly.github.io/bucket/</loc>
+  </url>
+  
+  <url>
+    <loc>https://b3ntly.github.io/bucket/errors/</loc>
+  </url>
+  
+  <url>
+    <loc>https://b3ntly.github.io/bucket/</loc>
+    <priority>0</priority>
+  </url>
+  
+</urlset>
