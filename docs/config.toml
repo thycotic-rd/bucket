@@ -1,4 +1,4 @@
-theme = "introduction"
+theme = "docuapi"
 languageCode = "en-us"
 baseurl = "https://b3ntly.github.io/bucket"
 title = "Bucket Documentation"
