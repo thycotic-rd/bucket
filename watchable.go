@@ -4,9 +4,9 @@ package bucket
 type Watchable struct {
 	Success chan error
 
-	Cancel  chan error
+	Cancel chan error
 
-	Failed  chan error
+	Failed chan error
 
 	// The final observable which the user is likely to read from. Though it can only be fired once it is buffered
 	// so that is may be ignored.
@@ -14,7 +14,7 @@ type Watchable struct {
 }
 
 func NewWatchable() *Watchable {
-	watchable := &Watchable{ make(chan error), make(chan error), make(chan error), make(chan error, 2) }
+	watchable := &Watchable{make(chan error), make(chan error), make(chan error), make(chan error, 2)}
 	watchable.listen()
 	return watchable
 }
@@ -26,13 +26,13 @@ func (w *Watchable) Done() chan error {
 
 // Listen and response to various signals. It will only receive a maximum of one signal by design.
 func (w *Watchable) listen() {
-	go func(){
+	go func() {
 		select {
-		case err := <- w.Success:
+		case err := <-w.Success:
 			w.Finished <- err
 			w.cleanup()
 
-		case err := <- w.Failed:
+		case err := <-w.Failed:
 			w.Finished <- err
 			w.cleanup()
 		}
@@ -40,15 +40,13 @@ func (w *Watchable) listen() {
 }
 
 // Close all channels to prevent memory leaks.
-func (w *Watchable) Close(err error){
+func (w *Watchable) Close(err error) {
 	w.Cancel <- err
 }
 
-func (w *Watchable) cleanup(){
+func (w *Watchable) cleanup() {
 	close(w.Success)
 	close(w.Cancel)
 	close(w.Failed)
 	close(w.Finished)
 }
-
-

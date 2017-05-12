@@ -2,12 +2,12 @@ package storage_test
 
 import (
 	"fmt"
-	"testing"
-	"sync/atomic"
-	"github.com/go-redis/redis"
-	"github.com/stretchr/testify/assert"
 	tb "github.com/b3ntly/bucket"
 	"github.com/b3ntly/bucket/storage"
+	"github.com/go-redis/redis"
+	"github.com/stretchr/testify/assert"
+	"sync/atomic"
+	"testing"
 )
 
 func MockRedisBucket(capacity int, redisOptions *redis.Options) (*tb.Bucket, error) {
@@ -16,19 +16,17 @@ func MockRedisBucket(capacity int, redisOptions *redis.Options) (*tb.Bucket, err
 	name := fmt.Sprintf("bucket_%v", atomic.LoadInt32(&bucketIndex))
 
 	return tb.NewWithRedis(&tb.Options{
-		Name: name,
+		Name:     name,
 		Capacity: capacity,
 		Storage: &storage.RedisStorage{
 			Client: redis.NewClient(redisOptions),
 		},
-
 	})
 }
 
 func TestRedisStorage_Ping(t *testing.T) {
 	asserts := assert.New(t)
 	testClient := redis.NewClient(redisOptions)
-
 
 	// redisStorage specific tests
 	t.Run("NewBucket will contain an error if storage.Ping() fails", func(t *testing.T) {
@@ -50,7 +48,7 @@ func TestRedisStorage_Ping(t *testing.T) {
 
 		_, err = tb.New(&tb.Options{
 			Capacity: 10,
-			Name: "some_key",
+			Name:     "some_key",
 			Storage: &storage.RedisStorage{
 				Client: redis.NewClient(redisOptions),
 			},
@@ -59,14 +57,13 @@ func TestRedisStorage_Ping(t *testing.T) {
 		asserts.Error(err, "Failed to return an error for NewBucket().keyTaken")
 	})
 
-
 	t.Run("bucket.Create will error if the key is already taken and contains a value of 0.", func(t *testing.T) {
 		err := testClient.Set("some_key2", 0, 0).Err()
 		asserts.Nil(err, "Incorrectly returned an error for client.Set().keyTaken")
 
 		_, err = tb.New(&tb.Options{
 			Capacity: 10,
-			Name: "some_key2",
+			Name:     "some_key2",
 			Storage: &storage.RedisStorage{
 				Client: redis.NewClient(redisOptions),
 			},

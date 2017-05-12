@@ -4,10 +4,6 @@ language: go
 go:
   - 1.8
 
-branches:
-  only:
-    - master
-
 # http://docs.travis-ci.com/user/languages/go/#Dependency-Management
 install:
    - go get github.com/go-redis/redis

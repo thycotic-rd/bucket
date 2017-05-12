@@ -1,0 +1,43 @@
+theme = "introduction"
+languageCode = "en-us"
+baseurl = "https://b3ntly.github.io/bucket"
+title = "Bucket Documentation"
+builddrafts         = true
+canonifyurls        = true
+publishdir = "./"
+
+# Code higlighting settings
+pygmentsCodefences = true
+pygmentsCodeFencesGuesSsyntax = false
+pygmentsOptions = ""
+pygmentsStyle = "monokai"
+# The monokai stylesheet is included in the base template.
+pygmentsUseClasses = true
+
+defaultContentLanguage = "en"
+
+[params]
+search = true
+  
+# Configure the language example tabs.
+[[params.language_tabs]]
+key = "go"
+name = "Go"
+
+#Languages 
+[languages]
+
+[languages.en]
+languageName = "English"
+weight = 2
+title = "Bucket Documentation"
+
+# Left sidebar footer items. Use HTMl or Markdown.
+toc_footers = [ 
+"<a href='#'>Sign Up for a Developer Key</a>",
+"Documentation Powered by [DocuAPI](https://github.com/bep/docuapi)",
+"Hugo Theme by [bep](https://github.com/bep)"
+]
+[languages.en.blackfriday]
+angledQuotes = false
+hrefTargetBlank = true

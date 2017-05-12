@@ -1,10 +1,10 @@
 package storage
 
 import (
-	"github.com/go-redis/redis"
-	"strconv"
 	"errors"
 	"fmt"
+	"github.com/go-redis/redis"
+	"strconv"
 )
 
 const (
@@ -98,7 +98,6 @@ func (rs *RedisStorage) TakeAll(bucketName string) (int, error) {
 
 	return int(tokenValue), nil
 }
-
 
 func (rs *RedisStorage) Set(bucketName string, tokens int) error {
 	// 0 indicates no expiration

@@ -1,15 +1,14 @@
 package storage_test
 
 import (
-	"testing"
+	"fmt"
+	tb "github.com/b3ntly/bucket"
+	"github.com/b3ntly/bucket/storage"
 	"github.com/go-redis/redis"
 	"github.com/stretchr/testify/assert"
-	"github.com/b3ntly/bucket/storage"
-	tb "github.com/b3ntly/bucket"
 	"sync/atomic"
-	"fmt"
+	"testing"
 )
-
 
 // UNIT TESTING
 
@@ -42,7 +41,7 @@ func MockBucketName() string {
 }
 
 func MockStorage() []*tb.Options {
-	return []*tb.Options{ memoryBucketOptions, redisBucketOptions }
+	return []*tb.Options{memoryBucketOptions, redisBucketOptions}
 }
 
 func TestTokenBucket(t *testing.T) {
@@ -54,8 +53,7 @@ func TestTokenBucket(t *testing.T) {
 	// provider agnostic tests which should be run against each provider
 	for _, options := range MockStorage() {
 
-
-		t.Run("store.Put shound not return an error", func(t *testing.T){
+		t.Run("store.Put shound not return an error", func(t *testing.T) {
 			bucket, err := tb.New(options)
 			asserts.Nil(err, "Should be able to create a bucket for store.Put test")
 
@@ -63,7 +61,7 @@ func TestTokenBucket(t *testing.T) {
 			asserts.Nil(err, "store.Put should not return an error")
 		})
 
-		t.Run("store.Take shound not return an error", func(t *testing.T){
+		t.Run("store.Take shound not return an error", func(t *testing.T) {
 			options.Capacity = 1
 			bucket, err := tb.New(options)
 			asserts.Nil(err, "Should be able to create a bucket for store.Take test")
@@ -72,7 +70,7 @@ func TestTokenBucket(t *testing.T) {
 			asserts.Nil(err, "store.Take should not return an error")
 		})
 
-		t.Run("store.Count shound not return an error", func(t *testing.T){
+		t.Run("store.Count shound not return an error", func(t *testing.T) {
 			expected := 1
 			options.Capacity = 1
 			options.Name = MockBucketName()
@@ -84,19 +82,19 @@ func TestTokenBucket(t *testing.T) {
 			asserts.Equal(expected, val, "value == expected")
 		})
 
-		t.Run("store.Set works", func(t *testing.T){
+		t.Run("store.Set works", func(t *testing.T) {
 			bucket, err := tb.New(options)
 			asserts.Nil(err, "Should be able to create a bucket for store.Count test")
 
 			err = options.Storage.Set(bucket.Name, 10)
 			asserts.Nil(err, "Set should return nil")
 
-			val, err := options.Storage.Count(bucket.Name, )
+			val, err := options.Storage.Count(bucket.Name)
 			asserts.Nil(err, "store.Take should not return an error")
 			asserts.Equal(10, val, "value == expected")
 		})
 
-		t.Run("store.TakeAll returns the token value and sets the token value to zero", func(t *testing.T){
+		t.Run("store.TakeAll returns the token value and sets the token value to zero", func(t *testing.T) {
 			expectedCount := 12
 			options.Capacity = expectedCount
 			options.Name = MockBucketName()
