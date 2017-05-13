@@ -75,6 +75,15 @@ shared in a distributed system as part of a token-bucket or similar algorithm.</
 <li>Well documented</li>
 </ul>
 
+<h2 id="terminology">Terminology</h2>
+
+<p>A bucket is simple a key-value pair matching a string to an integer type.
+The key represents the name and identifier for the object and the value the number
+of tokens held within a bucket.</p>
+
+<p>This is currently represented over two storage options, in-memory or redis. In-memory
+stores the pairs within a Golang map while Redis stores it using its own key-value system.</p>
+
     
         
 
