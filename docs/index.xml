@@ -18,12 +18,18 @@
 
 &lt;h1 id=&#34;introduction&#34;&gt;Introduction&lt;/h1&gt;
 
-&lt;p&gt;Features:&lt;/p&gt;
+&lt;p&gt;This library is a small utility containing bucket primitives which may be
+shared in a distributed system as part of a token-bucket or similar algorithm.&lt;/p&gt;
+
+&lt;h2 id=&#34;features&#34;&gt;Features&lt;/h2&gt;
 
 &lt;ul&gt;
-&lt;li&gt;Implement token bucket algorithms&lt;/li&gt;
-&lt;li&gt;Work with distributed systems&lt;/li&gt;
-&lt;li&gt;Build sand castles&lt;/li&gt;
+&lt;li&gt;In-Memory or Redis based storage&lt;/li&gt;
+&lt;li&gt;Concurrency-safe&lt;/li&gt;
+&lt;li&gt;Put, Take, Count, DynamicFill, and many more primitives&lt;/li&gt;
+&lt;li&gt;Designed for distributed systems&lt;/li&gt;
+&lt;li&gt;Well tested&lt;/li&gt;
+&lt;li&gt;Well documented&lt;/li&gt;
 &lt;/ul&gt;
 </description>
     </item>
