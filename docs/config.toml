@@ -2,7 +2,7 @@ theme = "docuapi"
 themesdir = "themes"
 languageCode = "en-us"
 baseurl = "https://b3ntly.github.io/bucket"
-title = "DocuAPI Example Site"
+title = "Bucket"
 builddrafts         = true
 canonifyurls        = true
 contentdir          = "content"
@@ -27,17 +27,18 @@ search = true
 key = "go"
 name = "Go"
 
+
+
 #Languages
 [languages]
 
 [languages.en]
 languageName = "English"
 weight = 2
-title = "DocuAPI Example Site"
+title = "Bucket"
 
 # Left sidebar footer items. Use HTMl or Markdown.
 toc_footers = [
-"<a href='#'>Sign Up for a Developer Key</a>",
 "Documentation Powered by [DocuAPI](https://github.com/bep/docuapi)",
 "Hugo Theme by [bep](https://github.com/bep)"
 ]

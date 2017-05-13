@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>DocuAPI Example Site</title>
+    <title>Bucket</title>
     <link href='https://b3ntly.github.io/bucket/slate/stylesheets/monokai.css' rel="stylesheet" media="screen" />
 <link href='https://b3ntly.github.io/bucket/slate/stylesheets/screen.css' rel="stylesheet" media="screen" />
 <link href='https://b3ntly.github.io/bucket/slate/stylesheets/print.css' rel="stylesheet" media="print" />
@@ -44,8 +44,6 @@
         
         <ul class="toc-footer">
             
-            <li><a href='#'>Sign Up for a Developer Key</a></li>
-            
             <li>Documentation Powered by <a href="https://github.com/bep/docuapi" target="_blank">DocuAPI</a></li>
             
             <li>Hugo Theme by <a href="https://github.com/bep" target="_blank">bep</a></li>
@@ -53,7 +51,6 @@
         </ul>
         
         
-
     </div>
     <div class="page-wrapper">
         <div class="dark-box"></div>
@@ -64,238 +61,204 @@
 
 <h1 id="introduction">Introduction</h1>
 
-<p>Welcome to the Kittn API! You can use our API to access Kittn API endpoints, which can get information on various cats, kittens, and breeds in our database.</p>
+<p>Features:</p>
 
-<p>We have language bindings in Shell, Ruby, and Python! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.</p>
-
-<p><strong>This example API documentation page was created with <a href="https://github.com/bep/docuapi/" target="_blank">DocuAPI</a>, a multilingual documentation theme for the static site generator <a href="http://gohugo.io/" target="_blank">Hugo</a>.</strong></p>
-
-<h1 id="authentication">Authentication</h1>
-
-<blockquote>
-<p>To authorize, use this code:</p>
-</blockquote>
-<div class="highlight"><pre><code class="language-go" data-lang="go"><span></span><span class="kn">package</span> <span class="nx">main</span>
-
-<span class="kn">import</span> <span class="s">&quot;github.com/bep/kittn/auth&quot;</span>
-
-<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
-	<span class="nx">api</span> <span class="o">:=</span> <span class="nx">auth</span><span class="p">.</span><span class="nx">Authorize</span><span class="p">(</span><span class="s">&quot;meowmeowmeow&quot;</span><span class="p">)</span>
-
-	<span class="c1">// Just to make it compile</span>
-	<span class="nx">_</span> <span class="p">=</span> <span class="nx">api</span>
-<span class="p">}</span>
-</code></pre></div>
-
-<blockquote>
-<p>Make sure to replace <code>meowmeowmeow</code> with your API key.</p>
-</blockquote>
-
-<p>Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our <a href="http://example.com/developers" target="_blank">developer portal</a>.</p>
-
-<p>Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:</p>
-
-<p><code>Authorization: meowmeowmeow</code></p>
-
-<aside class="notice">
-You must replace <code>meowmeowmeow</code> with your personal API key.
-</aside>
-
-<h1 id="kittens">Kittens</h1>
-
-<h2 id="get-all-kittens">Get All Kittens</h2>
-<div class="highlight"><pre><code class="language-go" data-lang="go"><span></span><span class="kn">package</span> <span class="nx">main</span>
-
-<span class="kn">import</span> <span class="s">&quot;github.com/bep/kittn/auth&quot;</span>
-
-<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
-	<span class="nx">api</span> <span class="o">:=</span> <span class="nx">auth</span><span class="p">.</span><span class="nx">Authorize</span><span class="p">(</span><span class="s">&quot;meowmeowmeow&quot;</span><span class="p">)</span>
-
-	<span class="nx">_</span> <span class="p">=</span> <span class="nx">api</span><span class="p">.</span><span class="nx">GetKittens</span><span class="p">()</span>
-<span class="p">}</span>
-</code></pre></div>
-
-<blockquote>
-<p>The above command returns JSON structured like this:</p>
-</blockquote>
-<div class="highlight"><pre><code class="language-json" data-lang="json"><span></span><span class="p">[</span>
-  <span class="p">{</span>
-    <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-    <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Fluffums&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;breed&quot;</span><span class="p">:</span> <span class="s2">&quot;calico&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;fluffiness&quot;</span><span class="p">:</span> <span class="mi">6</span><span class="p">,</span>
-    <span class="nt">&quot;cuteness&quot;</span><span class="p">:</span> <span class="mi">7</span>
-  <span class="p">},</span>
-  <span class="p">{</span>
-    <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
-    <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Max&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;breed&quot;</span><span class="p">:</span> <span class="s2">&quot;unknown&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;fluffiness&quot;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
-    <span class="nt">&quot;cuteness&quot;</span><span class="p">:</span> <span class="mi">10</span>
-  <span class="p">}</span>
-<span class="p">]</span>
-</code></pre></div>
-
-<p>This endpoint retrieves all kittens.</p>
-
-<h3 id="http-request">HTTP Request</h3>
-
-<p><code>GET http://example.com/api/kittens</code></p>
-
-<h3 id="query-parameters">Query Parameters</h3>
-
-<table>
-<thead>
-<tr>
-<th>Parameter</th>
-<th>Default</th>
-<th>Description</th>
-</tr>
-</thead>
-
-<tbody>
-<tr>
-<td>include_cats</td>
-<td>false</td>
-<td>If set to true, the result will also include cats.</td>
-</tr>
-
-<tr>
-<td>available</td>
-<td>true</td>
-<td>If set to false, the result will include kittens that have already been adopted.</td>
-</tr>
-</tbody>
-</table>
-
-<aside class="success">
-Remember — a happy kitten is an authenticated kitten!
-</aside>
-
-<h2 id="get-a-specific-kitten">Get a Specific Kitten</h2>
-<div class="highlight"><pre><code class="language-go" data-lang="go"><span></span><span class="kn">package</span> <span class="nx">main</span>
-
-<span class="kn">import</span> <span class="s">&quot;github.com/bep/kittn/auth&quot;</span>
-
-<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
-	<span class="nx">api</span> <span class="o">:=</span> <span class="nx">auth</span><span class="p">.</span><span class="nx">Authorize</span><span class="p">(</span><span class="s">&quot;meowmeowmeow&quot;</span><span class="p">)</span>
-
-	<span class="nx">_</span> <span class="p">=</span> <span class="nx">api</span><span class="p">.</span><span class="nx">GetKitten</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-<span class="p">}</span>
-</code></pre></div>
-
-<blockquote>
-<p>The above command returns JSON structured like this:</p>
-</blockquote>
-<div class="highlight"><pre><code class="language-json" data-lang="json"><span></span><span class="p">{</span>
-  <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
-  <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Max&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;breed&quot;</span><span class="p">:</span> <span class="s2">&quot;unknown&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;fluffiness&quot;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
-  <span class="nt">&quot;cuteness&quot;</span><span class="p">:</span> <span class="mi">10</span>
-<span class="p">}</span>
-</code></pre></div>
-
-<p>This endpoint retrieves a specific kitten.</p>
-
-<aside class="warning">Inside HTML code blocks like this one, you can't use Markdown, so use <code>&lt;code&gt;</code> blocks to denote code.</aside>
-
-<h3 id="http-request-1">HTTP Request</h3>
-
-<p><code>GET http://example.com/kittens/&lt;ID&gt;</code></p>
-
-<h3 id="url-parameters">URL Parameters</h3>
-
-<table>
-<thead>
-<tr>
-<th>Parameter</th>
-<th>Description</th>
-</tr>
-</thead>
-
-<tbody>
-<tr>
-<td>ID</td>
-<td>The ID of the kitten to retrieve</td>
-</tr>
-</tbody>
-</table>
+<ul>
+<li>Implement token bucket algorithms</li>
+<li>Work with distributed systems</li>
+<li>Build sand castles</li>
+</ul>
 
     
         
 
-<h1 id="errors">Errors</h1>
+<h1 id="install">Install</h1>
+<div class="highlight"><pre><code class="language-go" data-lang="go"><span></span><span class="c1">// with go tools</span>
+<span class="k">go</span> <span class="nx">get</span> <span class="nx">github</span><span class="p">.</span><span class="nx">com</span><span class="o">/</span><span class="nx">b3ntly</span><span class="o">/</span><span class="nx">bucket</span>
 
-<aside class="notice">This error section is stored in a separate file, errors.md. DocuAPI allows you to split the single page documentation in as many files as needed. Files are included in the  default Hugo page order . One way of ordering the pages is by setting the page `weight` in the front matter. Pages with lower weight will be listed first.</aside>
+<span class="c1">// with glide </span>
+<span class="nx">glide</span> <span class="nx">install</span> <span class="nx">github</span><span class="p">.</span><span class="nx">com</span><span class="o">/</span><span class="nx">b3ntly</span><span class="o">/</span><span class="nx">bucket</span>
+</code></pre></div>
 
-<p>The Kittn API uses the following error codes:</p>
+<p>While you can use this library just fine with the standard Go tools it&rsquo;s recommended that you use
+the Glide package manager to take full advantage of semantic versioning and vendoring.</p>
 
-<table>
-<thead>
-<tr>
-<th>Error Code</th>
-<th>Meaning</th>
-</tr>
-</thead>
+    
+        
 
-<tbody>
-<tr>
-<td>400</td>
-<td>Bad Request &ndash; Your request sucks</td>
-</tr>
+<h1 id="new">New</h1>
+<div class="highlight"><pre><code class="language-go" data-lang="go"><span></span><span class="c1">// bucket will use in-memory storage as default</span>
+<span class="nx">b</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">bucket</span><span class="p">.</span><span class="nx">New</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">bucket</span><span class="p">.</span><span class="nx">Options</span><span class="p">{</span>
+    <span class="nx">Name</span><span class="p">:</span> <span class="s">&quot;my_bucket&quot;</span><span class="p">,</span>
+    <span class="nx">Capacity</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
+<span class="p">})</span>
+</code></pre></div>
 
-<tr>
-<td>401</td>
-<td>Unauthorized &ndash; Your API key is wrong</td>
-</tr>
+<p>Creating a new bucket sets a key-value pair with whatever storage back-end you are using. By default this
+will happen in-memory. With the Redis back-end this will set the key &ldquo;my_bucket&rdquo; with the value of 10.</p>
 
-<tr>
-<td>403</td>
-<td>Forbidden &ndash; The kitten requested is hidden for administrators only</td>
-</tr>
+<p>There are some protections in place for name-collisions. For example when using the redis backend if the designated key
+already contains a value that is not an integer, or is an integer with a value of 0, bucket.New will return an error.</p>
 
-<tr>
-<td>404</td>
-<td>Not Found &ndash; The specified kitten could not be found</td>
-</tr>
+<p>Bucket names are not unique. If two buckets share the same name and storage back-end they will share the same value.</p>
 
-<tr>
-<td>405</td>
-<td>Method Not Allowed &ndash; You tried to access a kitten with an invalid method</td>
-</tr>
+    
+        
 
-<tr>
-<td>406</td>
-<td>Not Acceptable &ndash; You requested a format that isn&rsquo;t json</td>
-</tr>
+<h1 id="newwithredis">NewWithRedis</h1>
+<div class="highlight"><pre><code class="language-go" data-lang="go"><span></span><span class="nx">b</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">bucket</span><span class="p">.</span><span class="nx">NewWithRedis</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">bucket</span><span class="p">.</span><span class="nx">Options</span><span class="p">{</span>
+    <span class="nx">Capacity</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
+    <span class="nx">Name</span><span class="p">:</span> <span class="s">&quot;My redis bucket with default config&quot;</span><span class="p">,</span>
+<span class="p">})</span>
+</code></pre></div>
 
-<tr>
-<td>410</td>
-<td>Gone &ndash; The kitten requested has been removed from our servers</td>
-</tr>
+<p>Create a new bucket with a redis backend. By default it will attempt
+to connect to a Redis instance with the default Redis configuration,
+running at 127.0.0.1:6379.</p>
 
-<tr>
-<td>418</td>
-<td>I&rsquo;m a teapot</td>
-</tr>
+    
+        
 
-<tr>
-<td>429</td>
-<td>Too Many Requests &ndash; You&rsquo;re requesting too many kittens! Slow down!</td>
-</tr>
+<h1 id="custom-storage">Custom Storage</h1>
+<div class="highlight"><pre><code class="language-go" data-lang="go"><span></span><span class="kn">import</span> <span class="p">(</span>
+    <span class="s">&quot;github.com/b3ntly/bucket/storage&quot;</span>
+    <span class="s">&quot;github.com/go-redis/redis&quot;</span>
+<span class="p">)</span>    
 
-<tr>
-<td>500</td>
-<td>Internal Server Error &ndash; We had a problem with our server. Try again later.</td>
-</tr>
+<span class="nx">store</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="nx">storage</span><span class="p">.</span><span class="nx">RedisStorage</span><span class="p">{</span>
+    <span class="nx">Client</span><span class="p">:</span> <span class="nx">redis</span><span class="p">.</span><span class="nx">NewClient</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">redis</span><span class="p">.</span><span class="nx">Options</span><span class="p">{</span>
+        <span class="nx">Addr</span><span class="p">:</span> <span class="s">&quot;:6379&quot;</span><span class="p">,</span>
+        <span class="nx">DB</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
+        <span class="nx">PoolSize</span><span class="p">:</span> <span class="mi">30</span><span class="p">,</span>
+    <span class="p">}),</span>
+<span class="p">}</span>	
 
-<tr>
-<td>503</td>
-<td>Service Unavailable &ndash; We&rsquo;re temporarially offline for maintanance. Please try again later.</td>
-</tr>
-</tbody>
-</table>
+<span class="nx">b2</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">bucket</span><span class="p">.</span><span class="nx">New</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">bucket</span><span class="p">.</span><span class="nx">Options</span><span class="p">{</span>
+    <span class="nx">Capacity</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
+    <span class="nx">Name</span><span class="p">:</span> <span class="s">&quot;My redis bucket with custom config&quot;</span><span class="p">,</span>
+    <span class="nx">Storage</span><span class="p">:</span> <span class="nx">store</span><span class="p">,</span>
+<span class="p">})</span>
+</code></pre></div>
+
+<p>Instead of the provided In-memory and Redis storage back-ends you can pass any object that fulfills
+the Storage interface.</p>
+
+<p>Here&rsquo;s an example which modifies the Redis storage with a custom configuration.
+It uses <a href="https://github.com/go-redis/redis" target="_blank">Go-Redis</a> internally.</p>
+
+    
+        
+
+<h1 id="take">Take</h1>
+<div class="highlight"><pre><code class="language-go" data-lang="go"><span></span><span class="nx">err</span> <span class="p">=</span> <span class="nx">b</span><span class="p">.</span><span class="nx">Take</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+
+<span class="nx">err</span> <span class="p">=</span> <span class="nx">b</span><span class="p">.</span><span class="nx">Take</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="c1">// err.Error() =&gt; &quot;Insufficient tokens.&quot;</span>
+</code></pre></div>
+
+<p>You can take as many tokens from a bucket as a bucket currently contains. If not enough tokens exist
+in the bucket, or if some other error such as a network error occurs, it will return an error. Operations against
+a bucket occur transactionally so it may be assumed that upon an error the actual value of the bucket,
+even in a distributed system, did not change.</p>
+
+    
+        
+
+<h1 id="takeall">TakeAll</h1>
+<div class="highlight"><pre><code class="language-go" data-lang="go"><span></span><span class="nx">tokens</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">bucket</span><span class="p">.</span><span class="nx">TakeAll</span><span class="p">()</span>
+</code></pre></div>
+
+<p>Return an integer representing all the tokens in the bucket. Leaves the bucket with 0 tokens.</p>
+
+    
+        
+
+<h1 id="put">Put</h1>
+<div class="highlight"><pre><code class="language-go" data-lang="go"><span></span><span class="c1">// put 5 tokens back into the bucket</span>
+<span class="nx">err</span> <span class="p">=</span> <span class="nx">b</span><span class="p">.</span><span class="nx">Put</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+</code></pre></div>
+
+<p>Put tokens into the bucket.</p>
+
+<p>Because this library represents numeric values as 32-bit integers the maximum value is
+2,147,483,647.</p>
+
+    
+        
+
+<h1 id="count">Count</h1>
+<div class="highlight"><pre><code class="language-go" data-lang="go"><span></span><span class="nx">count</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">bucket</span><span class="p">.</span><span class="nx">Count</span><span class="p">()</span>
+</code></pre></div>
+
+<p>Get a count of tokens in the bucket.</p>
+
+    
+        
+
+<h1 id="watchable">Watchable</h1>
+<div class="highlight"><pre><code class="language-go" data-lang="go"><span></span><span class="kd">type</span> <span class="nx">Watchable</span> <span class="kd">struct</span> <span class="p">{</span>
+	<span class="nx">Success</span> <span class="kd">chan</span> <span class="kt">error</span>
+
+	<span class="nx">Cancel</span>  <span class="kd">chan</span> <span class="kt">error</span>
+
+	<span class="nx">Failed</span>  <span class="kd">chan</span> <span class="kt">error</span>
+
+	<span class="c1">// The final observable which the user is likely to read from. Though it can only be fired once it is buffered</span>
+	<span class="c1">// so that is may be ignored.</span>
+	<span class="nx">Finished</span> <span class="kd">chan</span> <span class="kt">error</span>
+<span class="p">}</span>
+
+<span class="nx">watchable</span> <span class="o">:=</span> <span class="nx">b</span><span class="p">.</span><span class="nx">Watch</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Second</span> <span class="o">*</span> <span class="mi">5</span><span class="p">)</span>
+<span class="nx">watchable</span><span class="p">.</span><span class="nx">Cancel</span> <span class="o">&lt;-</span> <span class="nx">errors</span><span class="p">.</span><span class="nx">New</span><span class="p">(</span><span class="s">&quot;I wasn&#39;t happy with this watcher :/&quot;</span><span class="p">)</span>
+
+<span class="c1">// capture the error as the watcher exits</span>
+<span class="nx">err</span> <span class="o">:=</span> <span class="o">&lt;-</span> <span class="nx">watchable</span><span class="p">.</span><span class="nx">Done</span><span class="p">()</span>
+<span class="c1">// err.Error() =&gt; &quot;I wasn&#39;t happy with this watcher :/&quot;</span>
+</code></pre></div>
+
+<p>A basic structure from which to cancel or observe an asynchronous action.</p>
+
+    
+        
+
+<h1 id="dynamicfill">DynamicFill</h1>
+<div class="highlight"><pre><code class="language-go" data-lang="go"><span></span><span class="kn">import</span> <span class="s">&quot;time&quot;</span>
+
+<span class="c1">// ticker creates a channel which fires on a given interval</span>
+<span class="nx">ticker</span> <span class="o">:=</span> <span class="nx">time</span><span class="p">.</span><span class="nx">NewTicker</span><span class="p">(</span><span class="nx">time</span><span class="p">.</span><span class="nx">Second</span><span class="p">)</span>
+
+<span class="nx">watchable</span> <span class="o">:=</span> <span class="nx">bucket</span><span class="p">.</span><span class="nx">DynamicFill</span><span class="p">(</span><span class="mi">300</span><span class="p">,</span> <span class="nx">ticker</span><span class="p">.</span><span class="nx">C</span><span class="p">)</span>
+
+<span class="nx">time</span><span class="p">.</span><span class="nx">Sleep</span><span class="p">(</span><span class="nx">time</span><span class="p">.</span><span class="nx">Second</span> <span class="o">*</span> <span class="mi">3</span><span class="p">)</span>
+<span class="nx">watchable</span><span class="p">.</span><span class="nx">Cancel</span> <span class="o">&lt;-</span> <span class="kc">nil</span>
+</code></pre></div>
+
+<p>Puts tokens into a bucket on an interval.</p>
+
+<p>It returns a watchable which may be canceled.</p>
+
+    
+        
+
+<h1 id="concurrency">Concurrency</h1>
+
+<p>This library was built to provide bucket primitives for a distributed system. As such
+both the in-memory and redis storage back-ends provide concurrent safe access to tokens.</p>
+
+<p>For the Redis back-end single operations are safe automatically thanks to the underlying single-threaded
+design of Redis. Methods needing more then one operation are done with Lua scripting which is executed as
+a single network call.</p>
+
+<p>For the in-memory back-end everything is protected by a read-write mutex.</p>
+
+    
+        
+
+<h1 id="contributing">Contributing</h1>
+
+<p>Bucket is a small library but improvements are always welcome. The easiest way is
+through a pull request the the git repository&rsquo;s development branch where you can
+easily modify the documentation, code, or tests.</p>
 
     
 

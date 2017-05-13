@@ -6,7 +6,51 @@
   </url>
   
   <url>
-    <loc>https://b3ntly.github.io/bucket/errors/</loc>
+    <loc>https://b3ntly.github.io/bucket/install/</loc>
+  </url>
+  
+  <url>
+    <loc>https://b3ntly.github.io/bucket/new/</loc>
+  </url>
+  
+  <url>
+    <loc>https://b3ntly.github.io/bucket/new-with-redis/</loc>
+  </url>
+  
+  <url>
+    <loc>https://b3ntly.github.io/bucket/custom-storage/</loc>
+  </url>
+  
+  <url>
+    <loc>https://b3ntly.github.io/bucket/take/</loc>
+  </url>
+  
+  <url>
+    <loc>https://b3ntly.github.io/bucket/take-all/</loc>
+  </url>
+  
+  <url>
+    <loc>https://b3ntly.github.io/bucket/put/</loc>
+  </url>
+  
+  <url>
+    <loc>https://b3ntly.github.io/bucket/count/</loc>
+  </url>
+  
+  <url>
+    <loc>https://b3ntly.github.io/bucket/watchable/</loc>
+  </url>
+  
+  <url>
+    <loc>https://b3ntly.github.io/bucket/dynamic-fill/</loc>
+  </url>
+  
+  <url>
+    <loc>https://b3ntly.github.io/bucket/concurrency/</loc>
+  </url>
+  
+  <url>
+    <loc>https://b3ntly.github.io/bucket/contribute/</loc>
   </url>
   
   <url>
