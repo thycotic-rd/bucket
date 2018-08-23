@@ -1,9 +1,11 @@
 package bucket
 
 import (
-	"github.com/b3ntly/bucket/storage"
 	"errors"
 	"time"
+
+	"github.com/noahhai/bucket/storage"
+
 	"github.com/go-redis/redis"
 )
 
@@ -43,8 +45,8 @@ type (
 	}
 
 	Options struct {
-		Storage storage.Storage
-		Name string
+		Storage  storage.Storage
+		Name     string
 		Capacity int
 	}
 )
@@ -53,9 +55,8 @@ var (
 	DefaultMemoryStore = &storage.MemoryStorage{}
 
 	// Options which use redis as the storage back-end, defaults to the default redis options
-	DefaultRedisStore = &storage.RedisStorage{ Client: redis.NewClient(&redis.Options{ Addr: ":6379" }) }
+	DefaultRedisStore = &storage.RedisStorage{Client: redis.NewClient(&redis.Options{Addr: ":6379"})}
 )
-
 
 // initialize options with defaults
 func (opts *Options) init(store storage.Storage) *Options {
@@ -79,11 +80,11 @@ func New(options *Options) (*Bucket, error) {
 }
 
 // Create a bucket with Redis storage
-func NewWithRedis(options *Options) (*Bucket, error){
+func NewWithRedis(options *Options) (*Bucket, error) {
 	return create(options.init(DefaultRedisStore))
 }
 
-func create(options *Options) (*Bucket, error){
+func create(options *Options) (*Bucket, error) {
 	bucket := &Bucket{Name: options.Name, capacity: options.Capacity, storage: options.Storage}
 
 	// ensure our redis connection is valid
@@ -103,7 +104,7 @@ func (bucket *Bucket) Take(tokensDesired int) error {
 }
 
 // returns a conditional amount of tokens representing all the tokens
-func (bucket *Bucket) TakeAll() (int, error){
+func (bucket *Bucket) TakeAll() (int, error) {
 	return bucket.storage.TakeAll(bucket.Name)
 }
 
@@ -140,7 +141,7 @@ func (bucket *Bucket) Watch(tokens int, duration time.Duration) *Watchable {
 				}
 
 			// cancel the watchable on timeout
-			case <- timeout:
+			case <-timeout:
 				watchable.Failed <- errors.New("Timeout.")
 				return
 
@@ -160,7 +161,7 @@ func (bucket *Bucket) Watch(tokens int, duration time.Duration) *Watchable {
 func (bucket *Bucket) Fill(rate int, interval time.Duration) *Watchable {
 	watchable := NewWatchable()
 
-	go func(bucket *Bucket, watchable *Watchable, rate int, interval time.Duration){
+	go func(bucket *Bucket, watchable *Watchable, rate int, interval time.Duration) {
 		ticker := time.NewTicker(interval)
 		defer ticker.Stop()
 
@@ -171,7 +172,7 @@ func (bucket *Bucket) Fill(rate int, interval time.Duration) *Watchable {
 
 		for {
 			select {
-			case <- ticker.C:
+			case <-ticker.C:
 
 				err := bucket.storage.Set(bucket.Name, rate)
 
@@ -196,7 +197,7 @@ func (bucket *Bucket) Fill(rate int, interval time.Duration) *Watchable {
 func (bucket *Bucket) DynamicFill(rate int, interval chan time.Time) *Watchable {
 	watchable := NewWatchable()
 
-	go func(bucket *Bucket, watchable *Watchable, rate int, interval chan time.Time){
+	go func(bucket *Bucket, watchable *Watchable, rate int, interval chan time.Time) {
 
 		for {
 			if rate > bucket.capacity {
@@ -204,8 +205,7 @@ func (bucket *Bucket) DynamicFill(rate int, interval chan time.Time) *Watchable 
 			}
 
 			select {
-			case <- interval:
-
+			case <-interval:
 
 				err := bucket.storage.Set(bucket.Name, rate)
 
@@ -215,7 +215,7 @@ func (bucket *Bucket) DynamicFill(rate int, interval chan time.Time) *Watchable 
 					return
 				}
 
-			case err := <- watchable.Cancel:
+			case err := <-watchable.Cancel:
 				watchable.Failed <- err
 				return
 			}

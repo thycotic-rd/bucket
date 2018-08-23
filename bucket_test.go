@@ -1,14 +1,15 @@
 package bucket_test
 
 import (
-	tb "github.com/b3ntly/bucket"
-	"github.com/b3ntly/bucket/storage"
-	"github.com/go-redis/redis"
-	"github.com/stretchr/testify/assert"
+	"fmt"
 	"sync/atomic"
 	"testing"
 	"time"
-	"fmt"
+
+	"github.com/go-redis/redis"
+	tb "github.com/noahhai/bucket"
+	"github.com/noahhai/bucket/storage"
+	"github.com/stretchr/testify/assert"
 )
 
 // INTEGRATION TESTING
@@ -32,8 +33,8 @@ var (
 )
 
 type BucketCase struct {
-	constructor func(options *tb.Options)(*tb.Bucket, error)
-	options *tb.Options
+	constructor func(options *tb.Options) (*tb.Bucket, error)
+	options     *tb.Options
 }
 
 // return a unique bucket name
@@ -43,13 +44,11 @@ func MockBucketName() string {
 	return fmt.Sprintf("bucket_%v", atomic.LoadInt32(&bucketIndex))
 }
 
-
 func MockStorage() []storage.Storage {
-	redisStorage := &storage.RedisStorage{ Client: redis.NewClient(redisOptions) }
+	redisStorage := &storage.RedisStorage{Client: redis.NewClient(redisOptions)}
 	memoryStorage := &storage.MemoryStorage{}
-	return []storage.Storage{ redisStorage, memoryStorage }
+	return []storage.Storage{redisStorage, memoryStorage}
 }
-
 
 func TestTokenBucket(t *testing.T) {
 	var err error
@@ -58,15 +57,15 @@ func TestTokenBucket(t *testing.T) {
 	asserts.Nil(err, "Should be able to create a broken redis storage instance")
 
 	cases := []*BucketCase{
-		&BucketCase{ constructor: tb.New, options: &tb.Options{} },
-		&BucketCase{ constructor: tb.NewWithRedis, options: redisBucketOptions },
+		&BucketCase{constructor: tb.New, options: &tb.Options{}},
+		&BucketCase{constructor: tb.NewWithRedis, options: redisBucketOptions},
 	}
 
 	// provider agnostic tests which should be run against each provider
 	for _, test := range cases {
-		t.Run("Bucket should be countable", func(t *testing.T){
+		t.Run("Bucket should be countable", func(t *testing.T) {
 			test.options.Name = MockBucketName()
-			test.options.Capacity= 10
+			test.options.Capacity = 10
 			bucket, err := test.constructor(test.options)
 
 			asserts.Nil(err, "Failed to create bucket for .Count")
@@ -127,7 +126,7 @@ func TestTokenBucket(t *testing.T) {
 			asserts.Error(err, "Failed to return an error due to a timeout on bucket.Watch()")
 		})
 
-		t.Run("bucket.Count should count", func(t *testing.T){
+		t.Run("bucket.Count should count", func(t *testing.T) {
 			test.options.Name = MockBucketName()
 			test.options.Capacity = 10
 			bucket, err := test.constructor(test.options)
@@ -140,26 +139,26 @@ func TestTokenBucket(t *testing.T) {
 			asserts.NotZero(count, "Count should be greater then 0")
 		})
 
-		t.Run("bucket.Fill can be canceled", func(t *testing.T){
+		t.Run("bucket.Fill can be canceled", func(t *testing.T) {
 			test.options.Name = MockBucketName()
 			test.options.Capacity = 0
 			bucket, err := test.constructor(test.options)
 			asserts.Nil(err, "Failed to create a bucket for bucket.Fill.cancelable test")
 
-			watchable := bucket.Fill(100, time.Second * 1)
+			watchable := bucket.Fill(100, time.Second*1)
 			done := watchable.Done()
 			watchable.Cancel <- nil
 			err = <-done
 			asserts.Nil(err, "bucket.Fill should cancel without an error")
 		})
 
-		t.Run("bucket.Fill actually fills", func(t *testing.T){
+		t.Run("bucket.Fill actually fills", func(t *testing.T) {
 			test.options.Name = MockBucketName()
 			test.options.Capacity = 100
 			bucket, err := test.constructor(test.options)
 			asserts.Nil(err, "Failed to create a bucket for bucket.Fill.cancelable test")
 
-			watchable := bucket.Fill(100, time.Millisecond * 1)
+			watchable := bucket.Fill(100, time.Millisecond*1)
 			done := watchable.Done()
 			time.Sleep(time.Millisecond * 5)
 
@@ -174,8 +173,8 @@ func TestTokenBucket(t *testing.T) {
 			asserts.NotZero(count, "Count should be greater then 0")
 		})
 
-		t.Run("bucket.DynamicFill will increase the token value when a channel is sent to", func(t *testing.T){
-			t.Run("bucket.Fill actually fills", func(t *testing.T){
+		t.Run("bucket.DynamicFill will increase the token value when a channel is sent to", func(t *testing.T) {
+			t.Run("bucket.Fill actually fills", func(t *testing.T) {
 				test.options.Name = MockBucketName()
 				test.options.Capacity = 100
 				bucket, err := test.constructor(test.options)
@@ -199,7 +198,7 @@ func TestTokenBucket(t *testing.T) {
 		})
 
 		// I'm really only writing this one for the sweet test coverage karma, it's covered by a unit test in ./storage
-		t.Run("bucket.TakeAll will return the current token value of a bucket then set it to zero", func(t *testing.T){
+		t.Run("bucket.TakeAll will return the current token value of a bucket then set it to zero", func(t *testing.T) {
 			expectedCount := 12
 			test.options.Name = MockBucketName()
 			test.options.Capacity = expectedCount

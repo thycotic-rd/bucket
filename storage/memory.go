@@ -1,13 +1,13 @@
 package storage
 
 import (
-	"sync"
 	"errors"
+	"sync"
 )
 
 // Implement an in-memory datastore with a concurrent safe map protected by a RWmutex
 type MemoryStorage struct {
-	mutex sync.RWMutex
+	mutex   sync.RWMutex
 	buckets map[string]int
 }
 
@@ -49,7 +49,7 @@ func (ms *MemoryStorage) Take(bucketName string, tokens int) error {
 }
 
 // get and return the token value, set the token value to zero
-func (ms *MemoryStorage) TakeAll(bucketName string) (int, error){
+func (ms *MemoryStorage) TakeAll(bucketName string) (int, error) {
 	ms.mutex.Lock()
 	defer ms.mutex.Unlock()
 
