@@ -6,8 +6,8 @@ import (
 	"testing"
 
 	"github.com/go-redis/redis"
-	tb "github.com/noahhai/bucket"
-	"github.com/noahhai/bucket/storage"
+	tb "github.com/thycotic-rd/bucket"
+	"github.com/thycotic-rd/bucket/storage"
 	"github.com/stretchr/testify/assert"
 )
 

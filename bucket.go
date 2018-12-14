@@ -4,7 +4,7 @@ import (
 	"errors"
 	"time"
 
-	"github.com/noahhai/bucket/storage"
+	"github.com/thycotic-rd/bucket/storage"
 
 	"github.com/go-redis/redis"
 )

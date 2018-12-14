@@ -5,10 +5,10 @@ import (
 	"sync/atomic"
 	"testing"
 
-	tb "github.com/noahhai/bucket"
+	tb "github.com/thycotic-rd/bucket"
 
 	"github.com/go-redis/redis"
-	"github.com/noahhai/bucket/storage"
+	"github.com/thycotic-rd/bucket/storage"
 	"github.com/stretchr/testify/assert"
 )
 
